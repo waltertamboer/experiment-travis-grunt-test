@@ -13,14 +13,12 @@ before_install:
 install:
 - npm install --dev
 
+before_script
+- grunt
+
 script:
 - npm test
 
 after_success:
-- grunt
-- grunt deploy
-- curl --ftp-create-dirs -T control-panel-$TRAVIS_BRANCH.tar.gz -u $FTP_USER:$FTP_PASSWORD ftp://$FTP_SERVER
-
-notifications:
-  email: false
-  irc: irc.freenode.org#ownpass
+- if [[ "$TRAVIS_TAG" != "" ]]; then echo "Building tag: $TRAVIS_TAG"; fi
+- if [[ "$TRAVIS_TAG" != "" ]]; then grunt publish; fi

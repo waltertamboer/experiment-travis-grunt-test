@@ -1,0 +1,9 @@
+{
+  "name": "waltertamboer-travis-grunt-test",
+  "devDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}

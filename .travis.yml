@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+- 6
+
+# This triggers builds to run on the new TravisCI infrastructure.
+# See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+sudo: false
+
+install:
+- npm install --dev
+
+script:
+- npm test
+
+after_success:
+- grunt
+- grunt deploy
+- curl --ftp-create-dirs -T control-panel-$TRAVIS_BRANCH.tar.gz -u $FTP_USER:$FTP_PASSWORD ftp://$FTP_SERVER
+
+notifications:
+  email: false
+  irc: irc.freenode.org#ownpass
